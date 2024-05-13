@@ -20,8 +20,17 @@ document.addEventListener("keyup" , function(event){
     if(event.keyCode === 13) {
         const toDo = input.value
         if(toDo) {
-            addToDo(toDo) 
+            addToDo(toDo,id, false, false)
+            list.push (
+                {
+                name: toDo,
+                id: id,
+                done: false, 
+                trash: false
+                }
+            )
+            input.value = ""
+            id++ 
         }
-        input.value = ""
     }
 })
