@@ -2,6 +2,16 @@
 
 const list = document.getElementById("list")
 
+list.addEventListener("click", function(event){
+    let element = event.target // <i class = "de fa fa-trash-o" join = "delete" id = "0"></i>
+    const elementJOB = event.target.attributes.job.value // delete or complete
+    if(elementJOB === "complete"){
+        completeToDo(element)
+    }else if(elementJOB === "delete") {
+        removeToDo(element)
+    }
+})
+
 const CHECK = "fa-check-circle"
 const UNCHECK = "fa-circle-thin"
 const LINE_THROUGH = "lineThrough"
