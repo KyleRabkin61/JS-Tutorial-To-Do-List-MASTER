@@ -55,3 +55,32 @@ document.addEventListener("keyup" , function(event){
         }
     }
 })
+
+let LIST, id
+let data = localStorage.getItem("TODO")
+if(data) {
+    LIST = JSON.parse(data)
+    loadToDo(LIST)
+    id = LIST.length
+}else {
+    LIST = []
+    id = 0
+}
+function loadToDo(array) {
+    array.forEach(function(item)){
+        addToDo(item.name, item.id, item.done, item.trash)
+    }
+}
+
+const clear = document.querySelector("clear")
+
+clear.addEventListener("clear", function(){
+    localStorage.clear()
+    location.reload()
+})
+
+const dataElement = document.getElementById("data")
+
+let options = {weekday:'long', month:'short', day:'numeric'}
+let today = new Date()
+dateElement.innerHTML = today.toLocateDateString("en-US", options)
