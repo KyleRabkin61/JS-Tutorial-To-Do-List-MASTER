@@ -2,12 +2,23 @@
 
 const list = document.getElementById("list")
 
-function addToDo(toDo) {
+const CHECK = "fa-check-circle"
+const UNCHECK = "fa-circle-thin"
+const LINE_THROUGH = "lineThrough"
+
+function addToDo(toDo, id, done,) {
+
+    if(trash) {
+        return
+    }
+    const DONE = done ? CHECK : UNCHECK
+    const LINE = done ? LINE_THROUGH : ""
+
     const text = `
     <li class = "item">
-        <i class = "co fa fa-circle-thin" job = "complete"></i>
+        <i class = "co fa fa-circle-thin" job = "complete" id="${id}"></i>
         <p class = "text"> ${toDo} </p>
-        <i class = "de fa fa-trash-o" job = "delete"></i>
+        <i class = "de fa fa-trash-o" job = "delete" id="${id}"></i>
     </li>`
 
     const position = "beforeend"
