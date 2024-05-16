@@ -12,8 +12,37 @@ const UNCHECK = "fa-circle-thin"
 const LINE_THROUGH = "lineThrough"
 
 // Variables
-let LIST = [] 
-id = 0
+let LIST
+let id
+
+// get item from localstorage
+
+let data = localStorage.getItem("TODO")
+
+// check if data is not empty
+
+if(data){
+    LIST = JSON.parse(data)
+    id = LIST.length // set the id to the last one in the list 
+    loadList(LIST) // load the list to the user interface
+}else{
+    // if data isn't empty
+    LIST = []
+    id = 0
+}
+
+// load items to the user's interface
+function loadList(array) {
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash)
+    })
+}
+
+// clear the local storage
+clear.addEventListener("click", function(){
+    localStorage.clear()
+    location.reload()
+})
 
 // Show todays data
 const options = {weekday : "long", month:"short", day:"numeric"}
@@ -62,6 +91,9 @@ document.addEventListener("keyup", function(even){
     }
 })
 
+    // add item to localstorage
+    localStorage.setItem("TODO", JSON.stringify(LIST))
+
 // complete to do
 function completeToDo(element) {
     element.classList.toggle(CHECK)
@@ -72,7 +104,7 @@ function completeToDo(element) {
 }
 
 // remove to do
-function removeToDO(element) {
+function removeToDo(element) {
     element.parentnode.parentNode.removeChild(element.parentNode)
 
     LIST[element.id].trash = true
@@ -85,8 +117,10 @@ list.addEventListener("click", function(event){
     const elementJob = element.attributes.job.value // complete or delete
     if(elementJob === "complete") {
         completeToDo(element)
-        if(element === "remove") {
-            removeToDO(element)
+        if(element === "delete") {
+            removeToDo(element)
         }
     }
+    // add item to localstorage
+    localStorage.setItem("TODO", JSON.stringify(LIST))
 })
