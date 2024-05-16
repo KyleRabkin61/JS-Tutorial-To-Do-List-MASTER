@@ -12,7 +12,8 @@ const UNCHECK = "fa-circle-thin"
 const LINE_THROUGH = "lineThrough"
 
 // Variables
-let LIST, id
+let LIST = [] 
+id = 0
 
 // Show todays data
 const options = {weekday : "long", month:"short", day:"numeric"}
@@ -61,4 +62,31 @@ document.addEventListener("keyup", function(even){
     }
 })
 
+// complete to do
+function completeToDo(element) {
+    element.classList.toggle(CHECK)
+    element.classList.toggle(UNCHECK)
+    element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH)
 
+    LIST[element.id].done = LIST[element.id].done ? false : true
+}
+
+// remove to do
+function removeToDO(element) {
+    element.parentnode.parentNode.removeChild(element.parentNode)
+
+    LIST[element.id].trash = true
+}
+
+//  Target the items created dynamically
+
+list.addEventListener("click", function(event){
+    const element = event.target // return the clicked element inside list
+    const elementJob = element.attributes.job.value // complete or delete
+    if(elementJob === "complete") {
+        completeToDo(element)
+        if(element === "remove") {
+            removeToDO(element)
+        }
+    }
+})
